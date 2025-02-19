@@ -7,21 +7,16 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    environment:
-      CADDY_INGRESS_NETWORKS: proxy
-      XDG_DATA_HOME: /data  # Expliziter Datenpfad
-      XDG_CONFIG_HOME: /config  # Expliziter Konfig-Pfad
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
     networks:
       - proxy
-    command: caddy docker-proxy  # Wichtig: Aktiviert den Docker-Proxy-Modus
 
 networks:
   proxy:
-    name: proxy
+    name: caddy_proxy    # Eindeutiger Name für das externe Netzwerk
     driver: bridge
 
 volumes:

@@ -4,11 +4,9 @@ services:
   myapp:
     image: nginx
     networks:
-      - proxy
-      - proxy_external
+      - caddy_proxy
 
 networks:
-  proxy:
-  proxy_external:
+  caddy_proxy:
     external: true
-    name: proxy
+    name: caddy_proxy

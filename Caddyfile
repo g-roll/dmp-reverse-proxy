@@ -1,20 +1,16 @@
 {
-    # Minimale Grundkonfiguration
-    admin off  # Deaktiviere Admin API für maximale Sicherheit
+    # Global options
+    admin off
+    auto_https disable_redirects
     storage file_system {
         root /data
     }
 }
 
-# Catch-all Handler für automatisches SSL
-:443 {
+# Catch-all für ALLE Domains (Top-Level und Subdomains)
+:80, :443 {
+    reverse_proxy {host}:80
     tls {
         on_demand
-    }
-    
-    # Reverse Proxy Beispiel (später anzupassen)
-    reverse_proxy {
-        to localhost:8080
-        header_up Host {upstream_hostport}
     }
 } 
