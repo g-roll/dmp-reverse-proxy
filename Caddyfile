@@ -1,25 +1,16 @@
 {
     # Global options
     admin off
-    auto_https disable_redirects
     storage file_system {
         root /data
     }
-
-    # On-Demand TLS in v2 ist einfacher
-    on_demand_tls {
-        # Optional: Erlaubte Domains einschränken
-        ask http://localhost:5000/verify
-    }
 }
 
-# Kombinierter Handler für HTTP und HTTPS
-:80, :443 {
-    # Automatische HTTPS-Konfiguration
+# Globaler Handler für alle eingehenden Anfragen
+* {
     tls {
         on_demand
     }
     
-    # Reverse Proxy für alle eingehenden Anfragen
     reverse_proxy {host}:80
 } 
