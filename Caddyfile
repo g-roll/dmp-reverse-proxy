@@ -6,18 +6,14 @@
         root /data
     }
 
-    # On-Demand TLS Konfiguration
+    # On-Demand TLS in v2 ist einfacher
     on_demand_tls {
-        # Begrenzt die Anzahl der Zertifikate pro Stunde
-        interval 60
-        burst 10
-        
         # Optional: Erlaubte Domains einschränken
-        ask http://localhost:5000/check-domain
+        ask http://localhost:5000/verify
     }
 }
 
-# Catch-all für ALLE Domains (Top-Level und Subdomains)
+# Catch-all für ALLE Domains
 :80, :443 {
     reverse_proxy {host}:80
     tls {
