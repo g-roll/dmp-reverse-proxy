@@ -5,6 +5,16 @@
     storage file_system {
         root /data
     }
+
+    # On-Demand TLS Konfiguration
+    on_demand_tls {
+        # Begrenzt die Anzahl der Zertifikate pro Stunde
+        interval 60
+        burst 10
+        
+        # Optional: Erlaubte Domains einschränken
+        ask http://localhost:5000/check-domain
+    }
 }
 
 # Catch-all für ALLE Domains (Top-Level und Subdomains)
