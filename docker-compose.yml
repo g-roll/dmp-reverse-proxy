@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      CADDY_INGRESS_NETWORKS: proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro  # Docker Socket für Service Discovery
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    name: proxy
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:
