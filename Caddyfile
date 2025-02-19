@@ -4,6 +4,11 @@
     storage file_system {
         root /data
     }
+
+    # On-Demand TLS mit required ask endpoint
+    on_demand_tls {
+        ask http://localhost:5000/verify
+    }
 }
 
 # Globaler Handler für alle eingehenden Anfragen
@@ -13,4 +18,4 @@
     }
     
     reverse_proxy {host}:80
-} 
+}
