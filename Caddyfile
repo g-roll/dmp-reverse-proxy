@@ -13,10 +13,13 @@
     }
 }
 
-# Catch-all für ALLE Domains
+# Kombinierter Handler für HTTP und HTTPS
 :80, :443 {
-    reverse_proxy {host}:80
+    # Automatische HTTPS-Konfiguration
     tls {
         on_demand
     }
+    
+    # Reverse Proxy für alle eingehenden Anfragen
+    reverse_proxy {host}:80
 } 
