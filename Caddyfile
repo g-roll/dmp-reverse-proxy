@@ -13,8 +13,8 @@
     }
 }
 
-# HTTPS Server
-:443 {
+# Global Site Block für alle Domains
+:443, :80 {
     # TLS Konfiguration
     tls {
         on_demand
@@ -30,14 +30,14 @@
         reverse_proxy {$SERVICE_NAME:localhost}:{$PORT:80}
     }
 
+    # HTTP zu HTTPS Redirect
+    handle {
+        redir https://{host}{uri} permanent
+    }
+
     # Logging
     log {
         output stdout
         format json
     }
-}
-
-# HTTP zu HTTPS Redirect
-:80 {
-    redir https://{host}{uri} permanent
 }
