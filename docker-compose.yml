@@ -19,7 +19,7 @@ services:
       - proxy
     environment:
       - EXPECTED_IP=138.199.208.16
-    entrypoint: ["sh", "-c", "nc -l -p 5000 -e ./verify.sh & caddy run --config /etc/caddy/Caddyfile"]
+    entrypoint: ["sh", "-c", "nc -l -p 5000 -s 0.0.0.0 -e ./verify.sh & caddy run --config /etc/caddy/Caddyfile"]
     tty: true
     stdin_open: true
 
