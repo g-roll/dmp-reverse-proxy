@@ -2,6 +2,8 @@
     # Admin API deaktivieren für Sicherheit
     admin off
     
+    debug
+
     # Storage für SSL Zertifikate
     storage file_system {
         root /data

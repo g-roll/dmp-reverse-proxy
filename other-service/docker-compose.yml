@@ -5,8 +5,14 @@ services:
     image: nginx
     networks:
       - caddy_proxy
+    environment:
+      - DOMAIN=master.digital-media-web.de     # Die Domain unter der der Service erreichbar sein soll
+      - SERVICE_NAME=myapp      # Muss dem Service-Namen entsprechen
+      - PORT=80                 # Der Port auf dem nginx läuft
 
 networks:
   caddy_proxy:
     external: true
     name: caddy_proxy
+
+    
