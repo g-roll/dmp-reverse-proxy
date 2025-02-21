@@ -5,7 +5,7 @@ services:
     networks:
       - caddy
     labels:
-      caddy: whoami.example.com
+      caddy: master.digital-media-web.de
       caddy.reverse_proxy: "{{upstreams 80}}"
 
 networks:
