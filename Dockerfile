@@ -1,2 +1,4 @@
-FROM caddy:2
-RUN apk add --no-cache netcat-openbsd bind-tools 
+FROM python:3-alpine
+WORKDIR /app
+COPY verify.py .
+CMD ["python", "verify.py"] 

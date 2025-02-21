@@ -1,9 +1,7 @@
 services:
   caddy:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
+    image: caddy:2
+    restart: always
     ports:
       - "80:80"
       - "443:443"
@@ -14,14 +12,20 @@ services:
       - ./conf:/etc/caddy
       - caddy_data:/data
       - caddy_config:/config
-      - ./verify.sh:/verify.sh:ro
+    networks:
+      - proxy
+    depends_on:
+      - verify
+
+  verify:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
     networks:
       - proxy
     environment:
       - EXPECTED_IP=138.199.208.16
-    entrypoint: ["sh", "-c", "nc -l -p 5000 -s 0.0.0.0 -e ./verify.sh & caddy run --config /etc/caddy/Caddyfile"]
-    tty: true
-    stdin_open: true
 
 networks:
   proxy:
