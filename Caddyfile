@@ -13,10 +13,12 @@
     }
 }
 
-# Globale Catch-all Regel für alle Domains
+# HTTPS Server
 :443 {
+    # TLS Konfiguration
     tls {
         on_demand
+        protocols tls1.2 tls1.3
     }
 
     # Match für Container-spezifische Domains
@@ -26,6 +28,12 @@
 
     handle @container {
         reverse_proxy {$SERVICE_NAME:localhost}:{$PORT:80}
+    }
+
+    # Logging
+    log {
+        output stdout
+        format json
     }
 }
 
