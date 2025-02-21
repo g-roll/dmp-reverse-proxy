@@ -11,7 +11,7 @@
 
     # On-demand TLS für dynamische Domains
     on_demand_tls {
-        ask http://localhost:5000/verify
+        ask http://verify:5000/verify
     }
 }
 
