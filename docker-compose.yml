@@ -1,37 +1,22 @@
+version: "3.7"
 services:
   caddy:
-    image: caddy:2
-    restart: always
+    image: lucaslorentz/caddy-docker-proxy:ci-alpine
     ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-    cap_add:
-      - NET_ADMIN
-    volumes:
-      - ./conf:/etc/caddy
-      - caddy_data:/data
-      - caddy_config:/config
-    networks:
-      - proxy
-    depends_on:
-      - verify
-
-  verify:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: always
-    networks:
-      - proxy
+      - 80:80
+      - 443:443
     environment:
-      - EXPECTED_IP=138.199.208.16
+      - CADDY_INGRESS_NETWORKS=caddy
+    networks:
+      - caddy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - caddy_data:/data
+    restart: unless-stopped
 
 networks:
-  proxy:
-    name: caddy_proxy
-    driver: bridge
+  caddy:
+    external: true
 
 volumes:
-  caddy_data:
-  caddy_config:
+  caddy_data: {}
