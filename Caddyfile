@@ -14,7 +14,7 @@
 }
 
 # HTTPS Server
-https:// {
+:443 {
     # TLS Konfiguration
     tls {
         on_demand
@@ -36,8 +36,7 @@ https:// {
         format json
     }
 }
-
 # HTTP zu HTTPS Redirect
-http:// {
+:80 {
     redir https://{host}{uri} permanent
 }

@@ -17,6 +17,8 @@ services:
     environment:
       - EXPECTED_IP=138.199.208.16
     entrypoint: ["sh", "-c", "socat TCP-LISTEN:5000,fork,reuseaddr EXEC:/verify.sh & caddy run --config /etc/caddy/Caddyfile"]
+    tty: true
+    stdin_open: true
 
 networks:
   proxy:
