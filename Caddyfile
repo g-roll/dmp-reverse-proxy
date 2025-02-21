@@ -21,7 +21,7 @@
 
     # Match für Container-spezifische Domains
     @container {
-        host {$DOMAIN}
+        host *
     }
 
     handle @container {
