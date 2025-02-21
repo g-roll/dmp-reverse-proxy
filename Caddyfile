@@ -25,7 +25,7 @@
     }
 
     handle @container {
-        reverse_proxy {$SERVICE_NAME}:80
+        reverse_proxy {$SERVICE_NAME:localhost}:{$PORT:80}
     }
 }
 
