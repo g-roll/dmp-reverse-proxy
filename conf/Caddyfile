@@ -16,7 +16,7 @@
 }
 
 # Einfach die Domain/Host-Definition ohne Port
-{$DOMAIN:*} {
+{$DOMAIN} {
     tls {
         on_demand    # Explizit on_demand für diese Domain aktivieren
     }
