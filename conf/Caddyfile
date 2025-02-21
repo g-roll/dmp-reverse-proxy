@@ -17,5 +17,9 @@
 
 # Einfach die Domain/Host-Definition ohne Port
 {$DOMAIN:*} {
+    tls {
+        on_demand    # Explizit on_demand für diese Domain aktivieren
+    }
+    
     reverse_proxy {$SERVICE_NAME:localhost}:{$PORT:80}
 }
