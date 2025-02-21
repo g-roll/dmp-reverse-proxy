@@ -1,22 +1,26 @@
-version: '3'
-
 services:
   caddy:
-    image: caddy:2
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - "80:80"
-      - "443:443"
+      - "443:443" 
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
+      - ./verify.sh:/verify.sh:ro
     networks:
       - proxy
+    environment:
+      - EXPECTED_IP=138.199.208.16
+    entrypoint: ["sh", "-c", "socat TCP-LISTEN:5000,fork,reuseaddr EXEC:/verify.sh & caddy run --config /etc/caddy/Caddyfile"]
 
 networks:
   proxy:
-    name: caddy_proxy    # Eindeutiger Name für das externe Netzwerk
+    name: caddy_proxy
     driver: bridge
 
 volumes:

@@ -1,21 +1,35 @@
 {
-    # Global options
+    # Admin API deaktivieren für Sicherheit
     admin off
+    
+    # Storage für SSL Zertifikate
     storage file_system {
         root /data
     }
 
-    # On-Demand TLS mit required ask endpoint
+    # On-demand TLS für dynamische Domains
     on_demand_tls {
         ask http://localhost:5000/verify
     }
 }
 
-# Globaler Handler für alle eingehenden Anfragen
-* {
+# Globale Catch-all Regel für alle Domains
+:443 {
     tls {
         on_demand
     }
-    
-    reverse_proxy {host}:80
+
+    # Match für Container-spezifische Domains
+    @container {
+        host {$DOMAIN}
+    }
+
+    handle @container {
+        reverse_proxy {$SERVICE_NAME}:80
+    }
+}
+
+# HTTP zu HTTPS Redirect
+:80 {
+    redir https://{host}{uri} permanent
 }
