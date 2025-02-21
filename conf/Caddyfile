@@ -13,30 +13,7 @@
     }
 }
 
-# HTTPS Server
-:443 {
-    # TLS Konfiguration
-    tls {
-        on_demand
-        protocols tls1.2 tls1.3
-    }
-
-    # Match für Container-spezifische Domains
-    @container {
-        host *
-    }
-
-    handle @container {
-        reverse_proxy {$SERVICE_NAME:localhost}:{$PORT:80}
-    }
-
-    # Logging
-    log {
-        output stdout
-        format json
-    }
-}
-# HTTP zu HTTPS Redirect
-:80 {
-    redir https://{host}{uri} permanent
+# Einfach die Domain/Host-Definition ohne Port
+{$DOMAIN:*} {
+    reverse_proxy {$SERVICE_NAME:localhost}:{$PORT:80}
 }
