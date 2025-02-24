@@ -2,8 +2,7 @@ version: "3.8"
 
 services:
   wordpress:
-    # build: .
-    image: wordpress:latest
+    build: .
     restart: unless-stopped
     depends_on:
       - mysql
