@@ -1,6 +1,13 @@
 version: "3.8"
 
 services:
+  init:
+    image: wordpress:latest
+    user: root
+    volumes:
+      - ./httpdocs:/var/www/html
+    command: chown -R www-data:www-data /var/www/html
+
   wordpress:
     build: .
     restart: unless-stopped
