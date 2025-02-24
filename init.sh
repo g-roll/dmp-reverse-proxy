@@ -1,15 +1,9 @@
 #!/bin/bash
 set -e
 
-# Warte auf MySQL
+echo "sleep 10 seconds"
 sleep 10
 
-# Setze Berechtigungen
-chown -R www-data:www-data /var/www/html
-
-su www-data
-
-# Konfiguriere WordPress
 wp config set FORCE_SSL_ADMIN true --raw
 wp config set WP_HOME "https://${DOMAIN}"
 wp config set WP_SITEURL "https://${DOMAIN}"
