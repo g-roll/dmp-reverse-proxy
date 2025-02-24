@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-echo "Sleeping for 10 seconds..."
-sleep 10
+echo "Sleeping for 30 seconds..."
+sleep 30
 
 # Install WordPress core if not already installed
 if ! wp core is-installed; then

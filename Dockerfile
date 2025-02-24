@@ -1,5 +1,5 @@
 # Use the official WordPress image as the base image
-FROM wordpress:php8.3
+FROM wordpress:latest
 
 # Install WP-CLI and configure www-data user in a single layer
 RUN set -ex \
@@ -11,8 +11,8 @@ RUN set -ex \
   && chown www-data:www-data /var/www/.wp-cli
 
 # Copy the entrypoint script
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+COPY entrypoint.sh /usr/local/bin/custom-entrypoint.sh
+RUN chmod +x /usr/local/bin/custom-entrypoint.sh
 
 # Set the working directory
 WORKDIR /var/www/html
@@ -23,8 +23,7 @@ EXPOSE 80
 # Switch to www-data user
 USER www-data
 
-# Set the entrypoint
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# Chain the entrypoints correctly
+ENTRYPOINT ["docker-entrypoint.sh", "/usr/local/bin/custom-entrypoint.sh"]
 
-# Start the web server
 CMD ["apache2-foreground"]
