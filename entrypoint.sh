@@ -15,11 +15,11 @@ if ! wp core is-installed; then
         --admin_email="admin@example.com"
 fi
 
-# Configure SSL and Proxy settings
-wp config set FORCE_SSL_ADMIN true --raw
-wp config set WP_HOME "https://${DOMAIN}"
-wp config set WP_SITEURL "https://${DOMAIN}"
-wp config set 'WORDPRESS_CONFIG_EXTRA' '$_SERVER["HTTPS"] = "on"; $_SERVER["SERVER_PORT"] = 443;' --raw
+# # Configure SSL and Proxy settings
+# wp config set FORCE_SSL_ADMIN true --raw
+# wp config set WP_HOME "https://${DOMAIN}"
+# wp config set WP_SITEURL "https://${DOMAIN}"
+# wp config set 'WORDPRESS_CONFIG_EXTRA' '$_SERVER["HTTPS"] = "on"; $_SERVER["SERVER_PORT"] = 443;' --raw
 
 # Ensure the script exits cleanly
 exec "$@"

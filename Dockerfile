@@ -11,8 +11,8 @@ RUN set -ex \
   && chown www-data:www-data /var/www/.wp-cli
 
 # Copy the entrypoint script
-COPY entrypoint.sh /usr/local/bin/custom-entrypoint.sh
-RUN chmod +x /usr/local/bin/custom-entrypoint.sh
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Set the working directory
 WORKDIR /var/www/html
@@ -23,7 +23,8 @@ EXPOSE 80
 # Switch to www-data user
 USER www-data
 
-# Chain the entrypoints correctly
-ENTRYPOINT ["docker-entrypoint.sh", "/usr/local/bin/custom-entrypoint.sh"]
+# Set the entrypoint
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
+# Start the web server
 CMD ["apache2-foreground"]
