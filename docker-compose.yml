@@ -1,22 +1,52 @@
-version: "3.7"
 services:
-  caddy:
-    image: lucaslorentz/caddy-docker-proxy:ci-alpine
-    ports:
-      - 80:80
-      - 443:443
+  wordpress:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
     environment:
-      - CADDY_INGRESS_NETWORKS=caddy
+      - WORDPRESS_DB_HOST=mysql
+      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=${MYSQL_PASSWORD}
+      - WORDPRESS_URL=https://${DOMAIN}
+      - WORDPRESS_TITLE=FUBAR
+      - WORDPRESS_ADMIN_USER=admin
+      - WORDPRESS_ADMIN_PASSWORD=changeme
+      - WORDPRESS_ADMIN_EMAIL=dev@digital-media-web.de
+    volumes:
+      - ./httpdocs:/var/www/html
     networks:
       - caddy
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - caddy_data:/data
+      - internal
+    labels:
+      caddy: ${DOMAIN}
+      caddy.reverse_proxy: "{{upstreams 80}}"
+
+  mysql:
+    image: mysql:8.4 # LTS
     restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - internal
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data:
 
 networks:
   caddy:
     external: true
-
-volumes:
-  caddy_data: {}
+  internal:
+    external: false
