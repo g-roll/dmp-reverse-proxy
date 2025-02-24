@@ -6,8 +6,7 @@ services:
     image: wordpress:latest
     restart: unless-stopped
     depends_on:
-      mysql:
-        condition: service_healthy
+      - mysql
     environment:
       - WORDPRESS_DB_HOST=mysql
       - WORDPRESS_DB_NAME=wordpress
@@ -31,11 +30,6 @@ services:
 
   mysql:
     image: mysql:8.4 # LTS
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
     restart: unless-stopped
     environment:
       - MYSQL_DATABASE=wordpress
