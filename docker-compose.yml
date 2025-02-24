@@ -14,27 +14,11 @@ services:
     networks:
       - internal
 
-  init:
-    image: wordpress:latest
-    user: root
-    volumes:
-      - ./httpdocs:/var/www/html
-    environment:
-      - WORDPRESS_DB_HOST=mysql
-      - WORDPRESS_DB_NAME=wordpress
-      - WORDPRESS_DB_USER=wordpress
-      - WORDPRESS_DB_PASSWORD=${MYSQL_PASSWORD}
-    command: >
-      /bin/sh -c "
-      docker-entrypoint.sh echo 'WordPress initialized' &&
-      chown -R www-data:www-data /var/www/html"
-
   wordpress:
-    build: .
+    image: wordpress:latest
     restart: unless-stopped
     depends_on:
       - mysql
-      - init
     environment:
       - WORDPRESS_DB_HOST=mysql
       - WORDPRESS_DB_NAME=wordpress
@@ -47,6 +31,7 @@ services:
       - WORDPRESS_ADMIN_EMAIL=dev@digital-media-web.de
     volumes:
       - ./httpdocs:/var/www/html
+      - ./init.sh:/usr/local/bin/init.sh
     networks:
       - caddy
       - internal
@@ -55,6 +40,10 @@ services:
     labels:
       caddy: ${DOMAIN}
       caddy.reverse_proxy: "{{upstreams 80}}"
+    command: >
+      /bin/sh -c "
+      chmod +x /usr/local/bin/init.sh &&
+      /usr/local/bin/init.sh"
 
 volumes:
   db_data:
