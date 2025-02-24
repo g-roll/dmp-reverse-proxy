@@ -15,10 +15,12 @@ services:
       - WORDPRESS_ADMIN_PASSWORD=changeme
       - WORDPRESS_ADMIN_EMAIL=dev@digital-media-web.de
     volumes:
-      - ./httpdocs:/var/www/html
+      - /var/www/vhosts/master.digital-media-web.de/wordpress:/var/www/html
     networks:
       - caddy
       - internal
+    tty: true
+    stdin_open: true
     labels:
       caddy: ${DOMAIN}
       caddy.reverse_proxy: "{{upstreams 80}}"
