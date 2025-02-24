@@ -7,15 +7,15 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      - WORDPRESS_DB_HOST=mysql
-      - WORDPRESS_DB_NAME=wordpress
-      - WORDPRESS_DB_USER=wordpress
-      - WORDPRESS_DB_PASSWORD=${MYSQL_PASSWORD}
-      - WORDPRESS_URL=https://${DOMAIN}
-      - WORDPRESS_TITLE=FUBAR
-      - WORDPRESS_ADMIN_USER=admin
-      - WORDPRESS_ADMIN_PASSWORD=changeme
-      - WORDPRESS_ADMIN_EMAIL=dev@digital-media-web.de
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_URL: https://${DOMAIN}
+      WORDPRESS_TITLE: FUBAR
+      WORDPRESS_ADMIN_USER: admin
+      WORDPRESS_ADMIN_PASSWORD: changeme
+      WORDPRESS_ADMIN_EMAIL: dev@digital-media-web.de
     volumes:
       - ./httpdocs:/var/www/html
     networks:
@@ -36,10 +36,10 @@ services:
       retries: 5
     restart: unless-stopped
     environment:
-      - MYSQL_DATABASE=wordpress
-      - MYSQL_USER=wordpress
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - db_data:/var/lib/mysql
     networks:
