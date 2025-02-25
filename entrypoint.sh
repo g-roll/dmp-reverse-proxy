@@ -16,7 +16,7 @@ if ! wp core is-installed; then
 
     wget https://${DOMAIN}/wp-content/ai1wm-backups/${AI1WM}
 
-    wp aiwm restore ${AI1WM}
+    wp ai1wm restore ${AI1WM}
 fi
 
 exec "$@"
