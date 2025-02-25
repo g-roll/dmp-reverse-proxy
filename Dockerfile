@@ -1,5 +1,5 @@
 # Use the official WordPress image as the base image
-FROM wordpress:php8.2-apache
+FROM wordpress:php8.3-apache
 
 # Install WP-CLI and configure www-data user in a single layer
 RUN set -ex \
