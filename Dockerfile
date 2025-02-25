@@ -1,6 +1,9 @@
 # Use the official WordPress image as the base image
 FROM wordpress:php8.3-apache
 
+RUN apt-get update && apt-get install -y \
+    wget
+
 # Install WP-CLI and configure www-data user in a single layer
 RUN set -ex \
   && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \

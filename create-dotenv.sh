@@ -9,8 +9,9 @@ cat >.env <<EOF
 MYSQL_PASSWORD=$MYSQL_PW
 MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PW
 
-# Required: Set your domain name
-DOMAIN=example.com
+# Set missing variables
+DOMAIN=
+AI1WM=
 EOF
 
 echo "Created .env file with random passwords"

@@ -9,12 +9,12 @@ if ! wp core is-installed; then
         --admin_user="admin" \
         --admin_password="dummy123" \
         --admin_email="admin@example.com"
-fi
 
-# # Configure SSL and Proxy settings
-# wp config set FORCE_SSL_ADMIN true --raw
-# wp config set WP_HOME "https://${DOMAIN}"
-# wp config set WP_SITEURL "https://${DOMAIN}"
-# wp config set 'WORDPRESS_CONFIG_EXTRA' '$_SERVER["HTTPS"] = "on"; $_SERVER["SERVER_PORT"] = 443;' --raw
+    wp plugin install --activate all-in-one-wp-migration https://dmp-assets.b-cdn.net/wp/plugins/ai1wm.zip
+
+    wget ${AI1WM} shop.weinrich-schokolade.de/httpdocs/wp-content/ai1wm-backups/
+
+    wp aiwm restore ${AI1WM}
+fi
 
 exec "$@"
