@@ -33,8 +33,8 @@ services:
       - ./httpdocs:/var/www/html
     networks:
       - internal
-    command: ["sh", "-c", "sleep 10 && true"]
-
+    command: ["apache2-foreground & sleep 10 && true"]
+    
   wordpress:
     build: .
     restart: unless-stopped
