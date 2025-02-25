@@ -34,7 +34,7 @@ services:
     networks:
       - internal
     entrypoint: ["docker-entrypoint.sh"]
-    command: ["exit", "0"]
+    command: ["true"]
 
   # wordpress:
   #   build: .
