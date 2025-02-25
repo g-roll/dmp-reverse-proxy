@@ -33,7 +33,6 @@ services:
       - ./httpdocs:/var/www/html
     networks:
       - internal
-    entrypoint: ["docker-entrypoint.sh"]
     command: ["true"]
 
   # wordpress:
