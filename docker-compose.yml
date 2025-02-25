@@ -33,33 +33,34 @@ services:
       - ./httpdocs:/var/www/html
     networks:
       - internal
-    command: ["apache2-foreground & sleep 10 && true"]
-  # wordpress:
-  #   build: .
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - mysql
-  #     - init
-  #   environment:
-  #     - WORDPRESS_DB_HOST=mysql
-  #     - WORDPRESS_DB_NAME=wordpress
-  #     - WORDPRESS_DB_USER=wordpress
-  #     - WORDPRESS_DB_PASSWORD=${MYSQL_PASSWORD}
-  #     - WORDPRESS_URL=https://${DOMAIN}
-  #     - WORDPRESS_TITLE=FUBAR
-  #     - WORDPRESS_ADMIN_USER=admin
-  #     - WORDPRESS_ADMIN_PASSWORD=changeme
-  #     - WORDPRESS_ADMIN_EMAIL=dev@digital-media-web.de
-  #   volumes:
-  #     - ./httpdocs:/var/www/html
-  #   networks:
-  #     - caddy
-  #     - internal
-  #   tty: true
-  #   stdin_open: true
-  #   labels:
-  #     caddy: ${DOMAIN}
-  #     caddy.reverse_proxy: "{{upstreams 80}}"
+    command: ["sh", "-c", "sleep 10 && true"]
+
+  wordpress:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - mysql
+      - init
+    environment:
+      - WORDPRESS_DB_HOST=mysql
+      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=${MYSQL_PASSWORD}
+      - WORDPRESS_URL=https://${DOMAIN}
+      - WORDPRESS_TITLE=FUBAR
+      - WORDPRESS_ADMIN_USER=admin
+      - WORDPRESS_ADMIN_PASSWORD=changeme
+      - WORDPRESS_ADMIN_EMAIL=dev@digital-media-web.de
+    volumes:
+      - ./httpdocs:/var/www/html
+    networks:
+      - caddy
+      - internal
+    tty: true
+    stdin_open: true
+    labels:
+      caddy: ${DOMAIN}
+      caddy.reverse_proxy: "{{upstreams 80}}"
 
 volumes:
   db_data:
