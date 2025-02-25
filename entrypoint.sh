@@ -12,7 +12,7 @@ if ! wp core is-installed; then
 
     wp plugin install --activate all-in-one-wp-migration https://dmp-assets.b-cdn.net/wp/plugins/ai1wm.zip
 
-    wget ${AI1WM} shop.weinrich-schokolade.de/httpdocs/wp-content/ai1wm-backups/
+    wget https://${DOMAIN}/wp-content/ai1wm-backups/${AI1WM} wp-content/ai1wm-backups/
 
     wp aiwm restore ${AI1WM}
 fi
