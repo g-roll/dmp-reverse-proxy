@@ -13,28 +13,7 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - internal
-  init:
-    image: wordpress:latest
-    restart: never
-    depends_on:
-      - mysql
-    environment:
-      - WORDPRESS_DB_HOST=mysql
-      - WORDPRESS_DB_NAME=wordpress
-      - WORDPRESS_DB_USER=wordpress
-      - WORDPRESS_DB_PASSWORD=${MYSQL_PASSWORD}
-      - WORDPRESS_URL=https://${DOMAIN}
-      - WORDPRESS_TITLE=FUBAR
-      - WORDPRESS_ADMIN_USER=admin
-      - WORDPRESS_ADMIN_PASSWORD=changeme
-      - WORDPRESS_ADMIN_EMAIL=dev@digital-media-web.de
-    volumes:
-      - ./httpdocs:/var/www/html
-    networks:
-      - internal
-    command: >
-      /bin/sh -c "./docker-entrypoint.sh && exit 0"
-
+      
   wordpress:
     build: .
     restart: unless-stopped
