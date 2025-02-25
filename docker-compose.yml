@@ -34,7 +34,7 @@ services:
     networks:
       - internal
     command: >
-      /bin/sh -c "./docker-entrypoint.sh && exit 0"
+      bash -c "bash /usr/local/bin/docker-entrypoint.sh && exit 0"
 
   wordpress:
     build: .
