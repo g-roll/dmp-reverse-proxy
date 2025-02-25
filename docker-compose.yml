@@ -33,8 +33,7 @@ services:
       - ./httpdocs:/var/www/html
     networks:
       - internal
-    command: ["sh", "-c", "docker-entrypoint.sh && true"]
-
+    command: ["apache2-foreground & sleep 10 && true"]
   # wordpress:
   #   build: .
   #   restart: unless-stopped
