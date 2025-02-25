@@ -19,7 +19,6 @@ services:
     restart: no
     depends_on:
       - mysql
-      - init
     environment:
       - WORDPRESS_DB_HOST=mysql
       - WORDPRESS_DB_NAME=wordpress
