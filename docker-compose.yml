@@ -33,7 +33,7 @@ services:
       - ./httpdocs:/var/www/html
     networks:
       - internal
-    command: ["true"]
+    command: ["sh", "-c", "docker-entrypoint.sh && true"]
 
   # wordpress:
   #   build: .
