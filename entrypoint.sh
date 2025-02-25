@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+sleep 30
+
 if ! wp core is-installed; then
     wp core install --url="${WORDPRESS_URL}" \
         --title="WordPress Site" \
