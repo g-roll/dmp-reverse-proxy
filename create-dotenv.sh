@@ -15,4 +15,4 @@ AI1WM=
 EOF
 
 echo "Created .env file with random passwords"
-echo "Edit .env and set your DOMAIN before running docker compose up!"
+echo "Edit .env and set missing variables before running docker compose up!"
