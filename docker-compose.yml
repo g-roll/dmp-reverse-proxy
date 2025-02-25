@@ -13,13 +13,12 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - internal
-      
+
   wordpress:
     build: .
     restart: unless-stopped
     depends_on:
       - mysql
-      - init
     environment:
       - WORDPRESS_DB_HOST=mysql
       - WORDPRESS_DB_NAME=wordpress
@@ -32,7 +31,6 @@ services:
       - WORDPRESS_ADMIN_EMAIL=dev@digital-media-web.de
     volumes:
       - ./httpdocs:/var/www/html
-      - ./init.sh:/usr/local/bin/init.sh
     networks:
       - caddy
       - internal
