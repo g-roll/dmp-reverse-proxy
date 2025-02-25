@@ -33,9 +33,9 @@ services:
       - ./httpdocs:/var/www/html
     networks:
       - internal
-    command: >
-      bash -c "bash /usr/local/bin/docker-entrypoint.sh && exit 0"
-
+    entrypoint: ["docker-entrypoint.sh"]
+    command: ["exit", "0"]
+    
   wordpress:
     build: .
     restart: unless-stopped
