@@ -1,4 +1,4 @@
-# Use the official WordPress image as the base image
+# Use the official WordPress image (LTS) as the base image
 FROM wordpress:php8.3-apache
 
 RUN apt-get update && apt-get install -y \

@@ -15,7 +15,7 @@ services:
       - internal
 
   init:
-    image: wordpress:php8.3-apache
+    image: wordpress:php8.3-apache #LTS
     restart: no
     depends_on:
       - mysql
