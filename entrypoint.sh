@@ -16,7 +16,14 @@ if ! wp core is-installed; then
 
     wget https://${DOMAIN}/wp-content/ai1wm-backups/${AI1WM}
 
-    wp ai1wm restore ${AI1WM}
+    if ! wp ai1wm restore "${AI1WM}" --yes; then
+        echo "First restore attempt failed, trying with alternative method..."
+        # Fallback Methode mit yes command
+        if ! yes | wp ai1wm restore "${AI1WM}"; then
+            echo "Failed to restore backup after multiple attempts"
+            exit 1
+        fi
+    fi
 fi
 
 exec "$@"
