@@ -46,12 +46,6 @@ services:
         limits:
           cpus: '2'
           memory: 512M
-        device:
-          - driver: net
-            count: 0
-            capabilities: [rate]
-            options:
-              rate: '100mbps'
     environment:
       - WORDPRESS_DB_HOST=mysql
       - WORDPRESS_DB_NAME=wordpress
