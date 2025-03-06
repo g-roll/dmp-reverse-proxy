@@ -41,6 +41,13 @@ services:
     depends_on:
       - mysql
       - init
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+        reservations:
+          memory: 256M
     environment:
       - WORDPRESS_DB_HOST=mysql
       - WORDPRESS_DB_NAME=wordpress
