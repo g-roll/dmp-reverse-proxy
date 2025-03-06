@@ -53,6 +53,8 @@ services:
       - WORDPRESS_ADMIN_EMAIL=dev@digital-media-web.de
       - AI1WM=${AI1WM}
       - DOMAIN=${DOMAIN}
+    env_file:
+      - .env
     volumes:
       - ./httpdocs:/var/www/html
     networks:
@@ -63,6 +65,15 @@ services:
     labels:
       caddy: ${DOMAIN}
       caddy.reverse_proxy: "{{upstreams 80}}"
+
+  redirect:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    networks:
+      - caddy
+    labels:
+      caddy: ${REDIRECT_DOMAIN}
+      caddy.redir: "https://${DOMAIN}{uri}"
 
 volumes:
   db_data:
