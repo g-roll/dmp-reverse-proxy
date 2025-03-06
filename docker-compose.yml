@@ -44,10 +44,14 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'
+          cpus: '2'
           memory: 512M
-        reservations:
-          memory: 256M
+        device:
+          - driver: net
+            count: 0
+            capabilities: [rate]
+            options:
+              rate: '100mbps'
     environment:
       - WORDPRESS_DB_HOST=mysql
       - WORDPRESS_DB_NAME=wordpress
