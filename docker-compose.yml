@@ -1,8 +1,6 @@
-version: "3.8"
-
 services:
   mysql:
-    image: mysql:8.4 # LTS
+    image: mysql:8.4 # LTS - EOL April, 2026
     restart: unless-stopped
     environment:
       - MYSQL_DATABASE=wordpress
@@ -15,7 +13,7 @@ services:
       - internal
 
   init:
-    image: wordpress:php8.3-apache #LTS
+    image: wordpress:php8.3-apache # Latest - EOL Dec 2025
     restart: no
     depends_on:
       - mysql
@@ -71,14 +69,14 @@ services:
       caddy: ${DOMAIN}
       caddy.reverse_proxy: "{{upstreams 80}}"
 
-  redirect:
-    image: caddy:2-alpine
-    restart: unless-stopped
-    networks:
-      - caddy
-    labels:
-      caddy: ${REDIRECT_DOMAIN}
-      caddy.redir: "https://${DOMAIN}{uri}"
+  # redirect:
+  #   image: caddy:2-alpine
+  #   restart: unless-stopped
+  #   networks:
+  #     - caddy
+  #   labels:
+  #     caddy: "www.${DOMAIN}" # Example - update for prod
+  #     caddy.redir: "https://${DOMAIN}{uri}"
 
 volumes:
   db_data:
