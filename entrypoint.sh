@@ -30,6 +30,4 @@ fi
 
 echo "Setting up network rate limit..."
 
-tc qdisc add dev eth0 root tbf rate 4mbit burst 32kb latency 50ms
-
 exec "$@"
