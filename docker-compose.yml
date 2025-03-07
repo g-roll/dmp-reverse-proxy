@@ -37,6 +37,8 @@ services:
     
   wordpress:
     build: .
+    cap_add:
+      - NET_ADMIN
     restart: unless-stopped
     depends_on:
       - mysql

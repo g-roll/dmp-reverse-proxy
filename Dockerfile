@@ -5,9 +5,6 @@ RUN apt-get update && apt-get install -y \
     wget \
     iproute2
 
-# Set network rate limit during build
-RUN tc qdisc add dev eth0 root tbf rate 4mbit burst 32kb latency 50ms
-
 # Install WP-CLI and configure www-data user in a single layer
 RUN set -ex \
   && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
