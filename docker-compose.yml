@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   mysql:
     image: mysql:8.4 # LTS - EOL April, 2026
@@ -69,14 +71,14 @@ services:
       caddy: ${DOMAIN}
       caddy.reverse_proxy: "{{upstreams 80}}"
 
-  # redirect:
-  #   image: caddy:2-alpine
-  #   restart: unless-stopped
-  #   networks:
-  #     - caddy
-  #   labels:
-  #     caddy: "www.${DOMAIN}" # Example - update for prod
-  #     caddy.redir: "https://${DOMAIN}{uri}"
+  redirect:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    networks:
+      - caddy
+    labels:
+      caddy: "www.${DOMAIN}" # Example - update for prod
+      caddy.redir: "https://${DOMAIN}{uri}"
 
 volumes:
   db_data:
