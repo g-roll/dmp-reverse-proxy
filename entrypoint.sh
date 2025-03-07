@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-sleep 30
-
 if ! wp core is-installed; then
+    sleep 30
+
     wp core install --url="${WORDPRESS_URL}" \
         --title="WordPress Site" \
         --admin_user="admin" \
@@ -27,9 +27,5 @@ if ! wp core is-installed; then
 
     wp plugin install --activate mainwp-child updraftplus
 fi
-
-echo "Setting up network rate limit..."
-
-tc qdisc add dev eth0 root tbf rate 4mbit burst 32kb latency 50ms
 
 exec "$@"

@@ -3,7 +3,7 @@ FROM wordpress:php8.3-apache
 
 RUN apt-get update && apt-get install -y \
     wget \
-    iproute2
+    && a2enmod ratelimit
 
 # Install WP-CLI and configure www-data user in a single layer
 RUN set -ex \
