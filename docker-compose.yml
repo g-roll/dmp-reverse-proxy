@@ -18,7 +18,7 @@ services:
     image: wordpress:php8.3-apache # Latest - EOL Dec 2025
     restart: no
     depends_on:
-      - mysql
+      - mysql 
     environment:
       - WORDPRESS_DB_HOST=mysql
       - WORDPRESS_DB_NAME=wordpress
