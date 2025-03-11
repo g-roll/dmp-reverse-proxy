@@ -28,7 +28,8 @@ if ! wp core is-installed; then
         fi
     fi
 
-    wp plugin install --activate mainwp-child updraftplus
+    wp plugin install --activate mainwp-child
+    wp plugin install --activate updraftplus
 fi
 
 exec "$@"
