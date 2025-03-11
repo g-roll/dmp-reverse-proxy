@@ -81,7 +81,7 @@ services:
     networks:
       - caddy
     labels:
-      caddy: "www.${DOMAIN}" # Example - update for prod
+      caddy: "www.${DOMAIN}" # for multiple domains e.g. " alt.${DOMAIN}, shop.${DOMAIN}, beta.${DOMAIN}"
       caddy.redir: "https://${DOMAIN}{uri}"
 
 volumes:

@@ -10,6 +10,9 @@ if ! wp core is-installed; then
         --admin_password="dummy123" \
         --admin_email="admin@example.com"
 
+    wp config set WP_MEMORY_LIMIT 256M --raw
+    wp config set WP_MAX_MEMORY_LIMIT 512M --raw
+
     wp plugin install --activate all-in-one-wp-migration https://dmp-assets.b-cdn.net/wp/plugins/ai1wm.zip
 
     cd /var/www/html/wp-content/ai1wm-backups/
